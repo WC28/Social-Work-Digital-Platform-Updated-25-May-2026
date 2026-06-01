@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JVK Social Work Digital Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&family=Kanit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Sarabun',sans-serif;
+  background:#f8f0ff;
+  color:#1a0a2e;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ══ BACKGROUND ══ */
+.bg{
+  position:fixed;inset:0;z-index:0;overflow:hidden;
+  background:
+    radial-gradient(ellipse 90% 70% at 0% 0%,   #ffd6f0 0%,transparent 55%),
+    radial-gradient(ellipse 80% 65% at 100% 0%,  #cce8ff 0%,transparent 55%),
+    radial-gradient(ellipse 70% 60% at 100% 100%,#fffacc 0%,transparent 55%),
+    radial-gradient(ellipse 75% 60% at 0%   100%,#ccffe8 0%,transparent 55%),
+    radial-gradient(ellipse 55% 50% at 50%  50%, #ede0ff 0%,transparent 60%),
+    linear-gradient(155deg,#fff5fe 0%,#f0f8ff 35%,#fffde8 65%,#f0fff7 100%);
+}
+.blob{position:absolute;border-radius:50%;filter:blur(75px);animation:bdrift 22s ease-in-out infinite alternate;pointer-events:none;}
+.b1{width:650px;height:650px;top:-180px;left:-180px;background:radial-gradient(circle,rgba(255,150,220,0.45) 0%,rgba(220,120,255,0.2) 55%,transparent 70%);animation-duration:26s;}
+.b2{width:560px;height:560px;bottom:-140px;right:-140px;background:radial-gradient(circle,rgba(80,190,255,0.4) 0%,rgba(100,240,200,0.18) 55%,transparent 70%);animation-duration:21s;animation-delay:-9s;}
+.b3{width:450px;height:450px;top:28%;left:38%;background:radial-gradient(circle,rgba(255,230,80,0.38) 0%,rgba(255,170,100,0.15) 55%,transparent 70%);animation-duration:17s;animation-delay:-5s;}
+.b4{width:320px;height:320px;top:12%;right:12%;background:radial-gradient(circle,rgba(120,240,170,0.42) 0%,transparent 70%);animation-duration:19s;animation-delay:-13s;}
+.b5{width:280px;height:280px;bottom:18%;left:6%;background:radial-gradient(circle,rgba(190,150,255,0.38) 0%,transparent 70%);animation-duration:23s;animation-delay:-3s;}
+.b6{width:240px;height:240px;bottom:40%;right:8%;background:radial-gradient(circle,rgba(255,130,160,0.32) 0%,transparent 70%);animation-duration:15s;animation-delay:-7s;}
+@keyframes bdrift{
+  0%{transform:translate(0,0) scale(1);}
+  30%{transform:translate(35px,-28px) scale(1.07);}
+  60%{transform:translate(-22px,40px) scale(0.95);}
+  100%{transform:translate(18px,-35px) scale(1.05);}
+}
+.dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(180,120,255,0.1) 2px,transparent 2px);background-size:36px 36px;animation:dots-breathe 5s ease-in-out infinite alternate;}
+@keyframes dots-breathe{from{opacity:.35}to{opacity:.9}}
+.bgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(180,120,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(180,120,255,0.05) 1px,transparent 1px);background-size:48px 48px;animation:grid-slide 30s linear infinite;}
+@keyframes grid-slide{from{background-position:0 0}to{background-position:48px 48px}}
+.bub{position:absolute;border-radius:50%;border:2px solid;animation:bub-rise linear infinite;pointer-events:none;}
+@keyframes bub-rise{
+  0%{transform:translateY(105vh) scale(0);opacity:0;}
+  8%{opacity:.8;}85%{opacity:.4;}
+  100%{transform:translateY(-8vh) scale(1.3);opacity:0;}
+}
+
+/* ══ EXTRA BG DECORATIONS ══ */
+
+/* flowing SVG wave lines behind hero */
+.wavelines{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:1;pointer-events:none;overflow:hidden;
+  opacity:.35;
+}
+.wavelines path{
+  fill:none;stroke-width:1.5;
+  animation:wave-flow 12s ease-in-out infinite alternate;
+}
+.wl1{stroke:#c084fc;}
+.wl2{stroke:#38bdf8;animation-delay:-3s;animation-duration:15s;}
+.wl3{stroke:#fb923c;animation-delay:-6s;animation-duration:10s;}
+.wl4{stroke:#34d399;animation-delay:-2s;animation-duration:18s;}
+@keyframes wave-flow{
+  0%{stroke-dashoffset:0;opacity:.5;}
+  50%{opacity:1;}
+  100%{stroke-dashoffset:-300;opacity:.6;}
+}
+
+/* constellation dots + lines */
+.constellation{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  opacity:.18;
+}
+
+/* shooting stars */
+.shoot{
+  position:fixed;z-index:2;pointer-events:none;
+  width:120px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,200,255,0.9),rgba(255,255,255,0));
+  animation:shoot-across linear infinite;
+}
+.shoot:nth-child(1){top:12%;animation-duration:4s;animation-delay:0s;transform:rotate(-20deg);}
+.shoot:nth-child(2){top:35%;animation-duration:6s;animation-delay:-2.5s;transform:rotate(-15deg);}
+.shoot:nth-child(3){top:65%;animation-duration:5s;animation-delay:-4s;transform:rotate(-25deg);}
+@keyframes shoot-across{
+  0%{left:-15%;opacity:0;}
+  5%{opacity:1;}
+  90%{opacity:.6;}
+  100%{left:110%;opacity:0;}
+}
+
+/* sparkle twinkle stars fixed positions */
+.tstar{
+  position:fixed;z-index:2;pointer-events:none;
+  animation:tstar-twinkle ease-in-out infinite alternate;
+}
+.tstar::before,.tstar::after{
+  content:'✦';position:absolute;
+  font-size:inherit;
+  animation:tstar-spin linear infinite;
+}
+.tstar::after{animation-direction:reverse;opacity:.5;transform:scale(.6);}
+@keyframes tstar-twinkle{from{opacity:.2;transform:scale(.8)}to{opacity:1;transform:scale(1.1)}}
+@keyframes tstar-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* ══ HEADER ══ */
+header{
+  position:relative;z-index:10;
+  padding:56px 24px 0;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:18px;
+}
+
+.top-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 28px;
+  background:rgba(255,255,255,0.85);
+  border:1.5px solid rgba(200,150,255,0.35);
+  border-radius:100px;
+  font-family:'Kanit',sans-serif;font-size:.74rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:#7c3aed;
+  box-shadow:0 4px 24px rgba(180,120,255,0.18),inset 0 1px 0 rgba(255,255,255,1);
+  backdrop-filter:blur(12px);animation:fu .6s ease both;
+}
+.ldot{
+  width:9px;height:9px;border-radius:50%;
+  background:linear-gradient(135deg,#a855f7,#ec4899);
+  box-shadow:0 0 12px rgba(168,85,247,0.8);
+  animation:ldot-p 2s ease-in-out infinite;
+}
+@keyframes ldot-p{0%,100%{transform:scale(1)}50%{transform:scale(.55);opacity:.4}}
+
+.hero-eye{
+  font-family:'Kanit',sans-serif;font-size:clamp(.72rem,1.5vw,.82rem);
+  font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(80,30,140,.4);animation:fu .6s .07s ease both;
+}
+
+h1{
+  font-family:'Kanit',sans-serif;font-weight:900;
+  font-size:clamp(2.6rem,8vw,6rem);
+  line-height:1.05;letter-spacing:-.02em;
+  animation:fu .7s .12s ease both;
+  max-width:900px;
+}
+/* line 1 */
+.ht1{
+  display:block;
+  background:linear-gradient(120deg,#f472b6 0%,#a855f7 40%,#6366f1 75%,#38bdf8 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 3px 18px rgba(168,85,247,0.3));
+  animation:gradient-shift 6s ease infinite alternate;
+  background-size:200% 200%;
+}
+/* line 2 */
+.ht2{
+  display:block;
+  background:linear-gradient(120deg,#fb923c 0%,#f59e0b 30%,#10b981 65%,#06b6d4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 3px 18px rgba(251,146,60,0.28));
+  animation:gradient-shift2 7s ease infinite alternate;
+  background-size:200% 200%;
+}
+/* line 3 — new */
+.ht3{
+  display:block;
+  font-size:clamp(1.8rem,5vw,4rem);
+  background:linear-gradient(120deg,#6366f1 0%,#8b5cf6 35%,#ec4899 70%,#f97316 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 2px 14px rgba(99,102,241,0.28));
+  animation:gradient-shift 8s ease infinite alternate;
+  background-size:200% 200%;
+}
+@keyframes gradient-shift{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes gradient-shift2{from{background-position:100% 50%}to{background-position:0% 50%}}
+
+.hero-sub{
+  font-size:clamp(1rem,2.2vw,1.18rem);font-weight:500;
+  color:rgba(60,20,100,.52);line-height:1.75;max-width:560px;
+  animation:fu .7s .17s ease both;
+}
+
+/* vision */
+.vbox{
+  display:flex;align-items:flex-start;gap:16px;max-width:640px;
+  background:rgba(255,255,255,0.75);
+  border:1.5px solid rgba(200,160,255,0.25);
+  border-left:4px solid #a855f7;
+  border-radius:20px;padding:20px 24px;text-align:left;
+  animation:fu .7s .22s ease both;
+  backdrop-filter:blur(14px);
+  box-shadow:0 8px 36px rgba(168,85,247,0.1),inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.vico{font-size:1.6rem;flex-shrink:0;margin-top:2px;}
+.vlbl{font-family:'Kanit',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#a855f7;margin-bottom:6px;}
+.vtxt{font-size:clamp(.86rem,1.8vw,.97rem);color:rgba(40,10,80,.72);line-height:1.75;}
+
+/* ★★★ DATE PILL — bold, solid, unmissable ★★★ */
+.datepill{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:16px 36px;
+  background:linear-gradient(135deg,#1e0050,#3b0080,#1a0040);
+  border-radius:100px;
+  font-family:'Kanit',sans-serif;
+  font-size:clamp(1rem,2.8vw,1.35rem);
+  font-weight:900;
+  letter-spacing:.05em;
+  color:#ffffff;
+  position:relative;overflow:hidden;
+  animation:fu .7s .27s ease both;
+  box-shadow:
+    0 8px 32px rgba(120,0,200,0.35),
+    0 2px 8px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+}
+/* animated shimmer sweep */
+.datepill::before{
+  content:'';position:absolute;
+  top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);
+  animation:pill-shimmer 3s ease-in-out infinite;
+}
+/* rainbow border glow */
+.datepill::after{
+  content:'';position:absolute;inset:-2px;border-radius:100px;z-index:-1;
+  background:linear-gradient(135deg,#f472b6,#a855f7,#38bdf8,#10b981,#fbbf24,#f97316,#f472b6);
+  background-size:300% 300%;
+  animation:pill-border 4s linear infinite;
+}
+@keyframes pill-shimmer{0%{left:-100%}60%{left:150%}100%{left:150%}}
+@keyframes pill-border{from{background-position:0% 50%}to{background-position:300% 50%}}
+
+.dpicon{font-size:1.4rem;flex-shrink:0;animation:dpicon-bounce .8s ease-in-out infinite alternate;}
+@keyframes dpicon-bounce{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+
+.dptext{
+  background:linear-gradient(120deg,#fde68a,#fff,#fde68a);
+  background-size:200% 200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradient-shift 3s ease infinite alternate;
+}
+
+/* rainbow underline divider */
+.hdiv{
+  width:160px;height:4px;border-radius:4px;
+  background:linear-gradient(90deg,#f472b6,#a855f7,#38bdf8,#10b981,#fbbf24);
+  background-size:200% 200%;
+  animation:fu .6s .3s ease both, gradient-shift 5s ease infinite alternate;
+  box-shadow:0 2px 12px rgba(168,85,247,0.3);
+}
+
+/* ══ SECTION LABEL ══ */
+.seclbl{position:relative;z-index:10;max-width:1160px;margin:44px auto 0;padding:0 24px;display:flex;align-items:center;gap:16px;animation:fu .6s .34s ease both;}
+.sline{flex:1;height:1.5px;background:linear-gradient(90deg,rgba(168,85,247,.25),transparent);}
+.sline.r{background:linear-gradient(90deg,transparent,rgba(168,85,247,.25));}
+.stxt{font-family:'Kanit',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(120,60,200,.4);white-space:nowrap;}
+
+/* ══ GRID ══ */
+.grid{
+  position:relative;z-index:10;
+  max-width:1160px;margin:22px auto 0;
+  padding:0 24px 96px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:20px;
+}
+
+/* ── CARD ── */
+.card{
+  position:relative;display:flex;flex-direction:column;
+  background:rgba(255,255,255,0.78);
+  border:1.5px solid rgba(255,255,255,0.95);
+  border-radius:28px;
+  padding:30px 26px 24px;
+  text-decoration:none;color:#1a0a2e;overflow:hidden;
+  transition:transform .4s cubic-bezier(.22,.68,0,1.2),box-shadow .4s ease,border-color .3s ease,background .3s ease;
+  animation:fu .65s ease both;cursor:pointer;
+  backdrop-filter:blur(16px);
+  box-shadow:0 4px 28px rgba(160,100,255,.1),0 1px 6px rgba(160,100,255,.07),inset 0 1px 0 rgba(255,255,255,1);
+}
+.card:nth-child(1){animation-delay:.08s}.card:nth-child(2){animation-delay:.13s}.card:nth-child(3){animation-delay:.18s}
+.card:nth-child(4){animation-delay:.23s}.card:nth-child(5){animation-delay:.28s}.card:nth-child(6){animation-delay:.33s}
+.card:nth-child(7){animation-delay:.38s}.card:nth-child(8){animation-delay:.43s}.card:nth-child(9){animation-delay:.48s}
+.card:nth-child(10){animation-delay:.53s}.card:nth-child(11){animation-delay:.58s}.card:nth-child(12){animation-delay:.63s}
+.card:hover{transform:translateY(-10px) scale(1.016);background:rgba(255,255,255,0.95);border-color:var(--ca,#a855f7);box-shadow:0 24px 64px rgba(160,100,255,.2),0 0 0 2px var(--ca,#a855f7),0 0 60px var(--cg,rgba(168,85,247,.18));}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--cbar,linear-gradient(90deg,#a855f7,#ec4899));border-radius:28px 28px 0 0;}
+.card::after{content:'';position:absolute;top:5px;left:0;right:0;height:55%;background:linear-gradient(180deg,rgba(255,255,255,.4) 0%,transparent 100%);border-radius:28px 28px 0 0;pointer-events:none;}
+.cnum{position:absolute;top:18px;right:20px;font-family:'Kanit',sans-serif;font-size:4rem;font-weight:900;color:var(--ca,#a855f7);opacity:.06;line-height:1;user-select:none;transition:opacity .3s;}
+.card:hover .cnum{opacity:.13;}
+.cicon{width:62px;height:62px;border-radius:18px;background:var(--cibg,linear-gradient(135deg,#a855f7,#ec4899));display:flex;align-items:center;justify-content:center;font-size:1.65rem;flex-shrink:0;margin-bottom:16px;box-shadow:0 8px 28px var(--cg,rgba(168,85,247,.35));transition:transform .35s ease,box-shadow .35s ease;position:relative;z-index:2;}
+.card:hover .cicon{transform:scale(1.12) rotate(-6deg);box-shadow:0 14px 40px var(--cg,rgba(168,85,247,.45));}
+.ctag{font-family:'Kanit',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ca,#a855f7);margin-bottom:7px;position:relative;z-index:2;}
+.ctitle{font-family:'Kanit',sans-serif;font-size:clamp(1rem,2.1vw,1.18rem);font-weight:800;line-height:1.35;color:#1a0a2e;margin-bottom:4px;position:relative;z-index:2;}
+.csub{font-size:.83rem;font-weight:600;color:rgba(60,20,100,.5);line-height:1.5;margin-bottom:8px;position:relative;z-index:2;}
+.cdesc{font-size:.85rem;color:rgba(60,20,100,.44);line-height:1.68;flex:1;margin-bottom:20px;position:relative;z-index:2;}
+.cfoot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1.5px solid rgba(180,120,255,.12);position:relative;z-index:2;}
+.obtn{display:inline-flex;align-items:center;gap:8px;font-family:'Kanit',sans-serif;font-size:.82rem;font-weight:700;color:var(--ca,#a855f7);background:var(--cdbg,rgba(168,85,247,.1));border:2px solid var(--ca,#a855f7);border-radius:100px;padding:9px 20px;transition:background .25s,transform .2s,box-shadow .25s;}
+.card:hover .obtn{background:var(--cdbh,rgba(168,85,247,.18));transform:translateX(3px);box-shadow:0 6px 22px var(--cg,rgba(168,85,247,.3));}
+.arr{transition:transform .25s;}.card:hover .arr{transform:translateX(5px);}
+.chip{font-size:.64rem;font-family:'Kanit',sans-serif;font-weight:600;color:rgba(100,60,160,.45);background:rgba(160,100,255,.07);border:1px solid rgba(160,100,255,.14);border-radius:8px;padding:4px 11px;letter-spacing:.05em;}
+
+/* ── PALETTES (12) ── */
+.p1{--ca:#8b5cf6;--cg:rgba(139,92,246,.3);--cibg:linear-gradient(135deg,#6d28d9,#a78bfa);--cbar:linear-gradient(90deg,#6d28d9,#a78bfa,#c084fc);--cdbg:rgba(139,92,246,.1);--cdbh:rgba(139,92,246,.2);}
+.p2{--ca:#0ea5e9;--cg:rgba(14,165,233,.3);--cibg:linear-gradient(135deg,#0369a1,#38bdf8);--cbar:linear-gradient(90deg,#0369a1,#38bdf8,#7dd3fc);--cdbg:rgba(14,165,233,.1);--cdbh:rgba(14,165,233,.2);}
+.p3{--ca:#f59e0b;--cg:rgba(245,158,11,.3);--cibg:linear-gradient(135deg,#b45309,#fcd34d);--cbar:linear-gradient(90deg,#f59e0b,#fcd34d,#fde68a);--cdbg:rgba(245,158,11,.1);--cdbh:rgba(245,158,11,.2);}
+.p4{--ca:#10b981;--cg:rgba(16,185,129,.3);--cibg:linear-gradient(135deg,#047857,#6ee7b7);--cbar:linear-gradient(90deg,#059669,#34d399,#6ee7b7);--cdbg:rgba(16,185,129,.1);--cdbh:rgba(16,185,129,.2);}
+.p5{--ca:#3b82f6;--cg:rgba(59,130,246,.3);--cibg:linear-gradient(135deg,#1d4ed8,#93c5fd);--cbar:linear-gradient(90deg,#1d4ed8,#60a5fa,#93c5fd);--cdbg:rgba(59,130,246,.1);--cdbh:rgba(59,130,246,.2);}
+.p6{--ca:#ec4899;--cg:rgba(236,72,153,.3);--cibg:linear-gradient(135deg,#9d174d,#f9a8d4);--cbar:linear-gradient(90deg,#be185d,#ec4899,#f472b6);--cdbg:rgba(236,72,153,.1);--cdbh:rgba(236,72,153,.2);}
+.p7{--ca:#f97316;--cg:rgba(249,115,22,.3);--cibg:linear-gradient(135deg,#c2410c,#fed7aa);--cbar:linear-gradient(90deg,#ea580c,#fb923c,#fdba74);--cdbg:rgba(249,115,22,.1);--cdbh:rgba(249,115,22,.2);}
+.p8{--ca:#14b8a6;--cg:rgba(20,184,166,.3);--cibg:linear-gradient(135deg,#0f766e,#5eead4);--cbar:linear-gradient(90deg,#0f766e,#2dd4bf,#99f6e4);--cdbg:rgba(20,184,166,.1);--cdbh:rgba(20,184,166,.2);}
+.p9{--ca:#84cc16;--cg:rgba(132,204,22,.3);--cibg:linear-gradient(135deg,#3f6212,#bef264);--cbar:linear-gradient(90deg,#65a30d,#a3e635,#d9f99d);--cdbg:rgba(132,204,22,.1);--cdbh:rgba(132,204,22,.2);}
+.p10{--ca:#d946ef;--cg:rgba(217,70,239,.3);--cibg:linear-gradient(135deg,#86198f,#f0abfc);--cbar:linear-gradient(90deg,#a21caf,#d946ef,#e879f9);--cdbg:rgba(217,70,239,.1);--cdbh:rgba(217,70,239,.2);}
+.p11{--ca:#ef4444;--cg:rgba(239,68,68,.3);--cibg:linear-gradient(135deg,#991b1b,#fca5a5);--cbar:linear-gradient(90deg,#dc2626,#f87171,#fca5a5);--cdbg:rgba(239,68,68,.1);--cdbh:rgba(239,68,68,.2);}
+.p12{--ca:#6366f1;--cg:rgba(99,102,241,.3);--cibg:linear-gradient(135deg,#3730a3,#a5b4fc);--cbar:linear-gradient(90deg,#4338ca,#818cf8,#a5b4fc);--cdbg:rgba(99,102,241,.1);--cdbh:rgba(99,102,241,.2);}
+
+/* ══ FOOTER ══ */
+footer{position:relative;z-index:10;text-align:center;padding:0 20px 60px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.flogo{font-family:'Kanit',sans-serif;font-size:1rem;font-weight:800;background:linear-gradient(120deg,#a855f7,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ftxt{font-size:.78rem;color:rgba(80,40,140,.35);letter-spacing:.07em;line-height:1.8;}
+.fline{width:60px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(168,85,247,.25),transparent);}
+
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:640px){
+  header{padding:40px 16px 0;}
+  .grid{grid-template-columns:1fr;padding:0 14px 72px;gap:14px;}
+  .seclbl{padding:0 14px;}
+  .card{padding:24px 20px 20px;}
+  h1{font-size:clamp(2.2rem,11vw,3rem);}
+  .vbox{flex-direction:column;}
+  .datepill{font-size:clamp(.9rem,4vw,1.1rem);padding:12px 22px;}
+}
+@media(min-width:900px) and (max-width:1159px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1160px){.grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="b1 blob"></div><div class="b2 blob"></div>
+  <div class="b3 blob"></div><div class="b4 blob"></div>
+  <div class="b5 blob"></div><div class="b6 blob"></div>
+  <div class="bgrid"></div><div class="dots"></div>
+</div>
+<script>
+(function(){
+  var bg=document.querySelector('.bg');
+  var bc=[['rgba(255,150,220,.7)','rgba(220,140,255,.4)'],['rgba(80,200,255,.7)','rgba(120,250,210,.4)'],['rgba(255,235,90,.7)','rgba(255,175,110,.4)'],['rgba(130,245,175,.7)','rgba(90,230,255,.4)'],['rgba(195,155,255,.7)','rgba(255,160,210,.4)'],['rgba(255,210,100,.7)','rgba(255,150,175,.4)']];
+  for(var i=0;i<34;i++){var b=document.createElement('div');b.className='bub';var sz=(Math.random()*22+8).toFixed(0);var p=bc[Math.floor(Math.random()*bc.length)];b.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100).toFixed(1)+'%;border-color:'+p[0]+';background:'+p[1]+';animation-duration:'+(Math.random()*18+9).toFixed(1)+'s;animation-delay:-'+(Math.random()*18).toFixed(1)+'s;';bg.appendChild(b);}
+})();
+</script>
+
+<!-- Wave lines decoration -->
+<svg class="wavelines" viewBox="0 0 1440 900" preserveAspectRatio="none">
+  <path class="wl1" stroke-dasharray="8 6" d="M-100,200 Q200,100 400,250 T800,180 T1200,260 T1600,200"/>
+  <path class="wl2" stroke-dasharray="12 8" d="M-100,400 Q300,320 500,430 T900,380 T1300,450 T1600,400"/>
+  <path class="wl3" stroke-dasharray="6 10" d="M-100,620 Q250,540 450,660 T850,590 T1250,650 T1600,600"/>
+  <path class="wl4" stroke-dasharray="10 5" d="M-100,800 Q350,720 550,820 T950,760 T1350,830 T1600,780"/>
+</svg>
+
+<!-- Shooting stars -->
+<div class="shoot"></div>
+<div class="shoot"></div>
+<div class="shoot"></div>
+
+<!-- Twinkle stars -->
+<div class="tstar" style="top:8%;left:7%;font-size:.9rem;color:#f472b6;animation-duration:2.1s;"></div>
+<div class="tstar" style="top:15%;right:9%;font-size:1.1rem;color:#38bdf8;animation-duration:1.7s;animation-delay:-.8s;"></div>
+<div class="tstar" style="top:45%;left:3%;font-size:.7rem;color:#fbbf24;animation-duration:2.5s;animation-delay:-1.2s;"></div>
+<div class="tstar" style="top:55%;right:4%;font-size:1rem;color:#10b981;animation-duration:1.9s;animation-delay:-.4s;"></div>
+<div class="tstar" style="top:75%;left:12%;font-size:.8rem;color:#a855f7;animation-duration:2.3s;animation-delay:-1.8s;"></div>
+<div class="tstar" style="top:25%;right:18%;font-size:.6rem;color:#fb923c;animation-duration:1.5s;animation-delay:-.6s;"></div>
+
+<header>
+  <div class="top-badge"><span class="ldot"></span>โรงพยาบาลจิตเวชนครราชสีมาราชนครินทร์ · JVK</div>
+  <p class="hero-eye">Social Work Digital Platform · ระบบดิจิทัลงานสังคมสงเคราะห์</p>
+  <h1>
+    <span class="ht1">ยกระดับงาน</span>
+    <span class="ht2">สังคมสงเคราะห์จิตเวช</span>
+    <span class="ht3">สู่โลกดิจิทัล</span>
+  </h1>
+  <p class="hero-sub">แพลตฟอร์มดิจิทัลครบวงจร สำหรับงานสังคมสงเคราะห์จิตเวช JVK<br><em style="font-style:normal;color:rgba(60,20,100,.32)">Comprehensive Digital Platform · Psychiatric Social Work</em></p>
+  <div class="vbox">
+    <span class="vico">🎯</span>
+    <div>
+      <div class="vlbl">Vision · วิสัยทัศน์</div>
+      <div class="vtxt">สร้างระบบที่ทำให้ <strong>นักสังคมสงเคราะห์จิตเวช</strong> มีเวลามากขึ้นสำหรับสิ่งที่สำคัญที่สุด — <strong>การดูแลผู้ป่วยและครอบครัว</strong></div>
+    </div>
+  </div>
+  <div class="datepill">
+    <span class="dpicon">📅</span>
+    <span class="dptext">อัพเดทล่าสุด · Last Updated: 2 มิถุนายน 2026</span>
+  </div>
+  <div class="hdiv"></div>
+</header>
+
+<div class="seclbl">
+  <div class="sline"></div>
+  <span class="stxt">ระบบทั้งหมด · All Systems (12)</span>
+  <div class="sline r"></div>
+</div>
+
+<main class="grid">
+
+  <a href="https://docs.google.com/spreadsheets/d/12m8s7Bo2nZEIVhMrBuiid4InPjGneUIzRVQDwCTvAJI/edit?gid=623784684#gid=623784684" target="_blank" class="card p1">
+    <span class="cnum">01</span>
+    <div class="cicon">📊</div>
+    <div class="ctag">Case Management · บริหารจัดการเคส</div>
+    <div class="ctitle">SW Case Management</div>
+    <div class="csub">ระบบบันทึกเคสรายเดือน</div>
+    <p class="cdesc">Dashboard หลักสำหรับบันทึก ติดตาม และวิเคราะห์เคสรายเดือน ภาพรวมสถิติทั้งหมด</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Google Sheets</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbxvBeOwGlgprPe5mrQm0qzZTNYvB8PYm6pmZyn5ryv--2CpbnLpSw23eNxxoyPW9bPc8Q/exec" target="_blank" class="card p2">
+    <span class="cnum">02</span>
+    <div class="cicon">📁</div>
+    <div class="ctag">e-Document · เอกสารอิเล็กทรอนิกส์</div>
+    <div class="ctitle">Social Work e-Document System</div>
+    <div class="csub">SW-eDoc · ระบบเอกสารอิเล็กทรอนิกส์</div>
+    <p class="cdesc">จัดการเอกสารงานสังคมสงเคราะห์ในรูปแบบดิจิทัล ลดการใช้กระดาษ เพิ่มประสิทธิภาพ</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbzbduVGtuyZlyZ_A2R0rf8o_0b60HUipJHX2I8NlaVpBmSldS5faEoJHvcDaRaQZFaN/exec" target="_blank" class="card p3">
+    <span class="cnum">03</span>
+    <div class="cicon">📋</div>
+    <div class="ctag">Case Intake · รับเคส</div>
+    <div class="ctitle">JVK Digital Social Work Intake Platform</div>
+    <div class="csub">ระบบรับและบันทึกข้อมูลผู้รับบริการ</div>
+    <p class="cdesc">รับเคสและบันทึกข้อมูลผู้รับบริการตั้งแต่ขั้นตอนแรก ครบถ้วนและเป็นระบบ</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbyDTm4C2S1FAINJktbzqUO_2QvWfY3d4Il4PDb46VxTMkRENK_wQtUDX2ePsEoyyLu-/exec" target="_blank" class="card p4">
+    <span class="cnum">04</span>
+    <div class="cicon">✅</div>
+    <div class="ctag">Check-in · บันทึกการปฏิบัติงาน</div>
+    <div class="ctitle">JVK Social Work Check-in System</div>
+    <div class="csub">ระบบบันทึกการเข้าปฏิบัติงาน</div>
+    <p class="cdesc">บันทึกการเข้าปฏิบัติงานของนักสังคมสงเคราะห์ ติดตามสถานะและสรุปผลประจำวัน</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://drive.google.com/drive/u/0/folders/1tPwERhRgPalhsr7SrcbR_iHRIHjVcA2J" target="_blank" class="card p5">
+    <span class="cnum">05</span>
+    <div class="cicon">☁️</div>
+    <div class="ctag">Digital Drive · คลังข้อมูลดิจิทัล</div>
+    <div class="ctitle">JVK SW Digital Healthcare Drive</div>
+    <div class="csub">คลังข้อมูลงานสังคมสงเคราะห์จิตเวช</div>
+    <p class="cdesc">คลังจัดเก็บเอกสารและข้อมูลดิจิทัลด้านสุขภาพ เข้าถึงได้ทุกที่ทุกเวลา</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Google Drive</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbxasUtYCyMPtDTmV1BdPbaeD2WHh9Lmf4LZoq_MV4t8VmGZh5F0fYVUWgdCNAvwY-ttLQ/exec" target="_blank" class="card p6">
+    <span class="cnum">06</span>
+    <div class="cicon">📄</div>
+    <div class="ctag">EMR Records · บันทึกเวชระเบียน</div>
+    <div class="ctitle">ระบบบันทึกส่งใบ EMR</div>
+    <div class="csub">เพื่อบันทึกหลักฐาน · Evidence Recording</div>
+    <p class="cdesc">บันทึกและส่งใบ EMR เพื่อเก็บหลักฐานการให้บริการในระบบเวชระเบียนอิเล็กทรอนิกส์</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbyqkGNANvcjm9lk4rOKioYNh7AUF2belm8k7U4pQM58LmOdHWjlYv2iQN1a9jvU15y0ag/exec" target="_blank" class="card p7">
+    <span class="cnum">07</span>
+    <div class="cicon">🗣️</div>
+    <div class="ctag">Case Conference · ประชุมเคส</div>
+    <div class="ctitle">JVK SW Case Conferences Information</div>
+    <div class="csub">ระบบบันทึกข้อมูลการประชุมเคส</div>
+    <p class="cdesc">บันทึกและจัดเก็บข้อมูลการประชุมเคส ติดตามผลการประชุมและข้อสรุป</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbzdsn2QmrMEwOPPaQ5WyNNk-xgQOjThqkqlyGLjvoNV1hwFDBk-bvR7UUQoMMZZ0twL6g/exec" target="_blank" class="card p8">
+    <span class="cnum">08</span>
+    <div class="cicon">🔀</div>
+    <div class="ctag">Case Referrals · ส่งต่อเคส</div>
+    <div class="ctitle">JVK SW Case Referrals</div>
+    <div class="csub">ระบบบันทึกรายละเอียดเคสการส่งต่อ</div>
+    <p class="cdesc">บันทึกรายละเอียดการส่งต่อเคสไปยังสถานสงเคราะห์/สถานส่งต่อ ติดตามผล</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbwy5DoaZW54UYk6unqSKTMeZ_h6FhBeqLaNy40y6EQbfi3N-RSG7dZ1rTDjoSKeap9u/exec" target="_blank" class="card p9">
+    <span class="cnum">09</span>
+    <div class="cicon">🏘️</div>
+    <div class="ctag">Community Prep · เตรียมชุมชน</div>
+    <div class="ctitle">Community Preparation Information</div>
+    <div class="csub">งานสังคมสงเคราะห์จิตเวชชุมชน</div>
+    <p class="cdesc">บันทึกข้อมูลการเตรียมความพร้อมชุมชนก่อนจำหน่าย พัฒนาโดยกลุ่มงานสังคมสงเคราะห์ JVK</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbx1Gin_1s7iBKnUvcGcHvxxBCcZNRRDB-WZaFc7QqYEfdO3HmrWKGAcDmxiGLYxPmu1Rg/exec" target="_blank" class="card p10">
+    <span class="cnum">10</span>
+    <div class="cicon">🌐</div>
+    <div class="ctag">Network · เครือข่าย</div>
+    <div class="ctitle">ระบบบันทึกเครือข่าย</div>
+    <div class="csub">Social Work Network Recording System</div>
+    <p class="cdesc">บันทึกและติดตามข้อมูลเครือข่ายงานสังคมสงเคราะห์จิตเวช เชื่อมต่อหน่วยงานภายในและภายนอก</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://script.google.com/macros/s/AKfycbwKka7q6kh8zuf3YVkGMYVb5dmBl8FYHbmKSyLWQvzg4byYa9ILNYAjckDPY1W_e0Vw/exec" target="_blank" class="card p11">
+    <span class="cnum">11</span>
+    <div class="cicon">📅</div>
+    <div class="ctag">Duty Schedule · จัดตารางเวร</div>
+    <div class="ctitle">ระบบจัดเวรรับเคสผู้ป่วย</div>
+    <div class="csub">Patient Case Duty Scheduling System</div>
+    <p class="cdesc">จัดตารางเวรและบันทึกการรับเคสผู้ป่วย บริหารจัดการเวรสังคมสงเคราะห์อย่างมีระบบ</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">Apps Script</span></div>
+  </a>
+
+  <a href="https://wc28.github.io/prototype/" target="_blank" class="card p12">
+    <span class="cnum">12</span>
+    <div class="cicon">🚀</div>
+    <div class="ctag">Prototype · ต้นแบบระบบ</div>
+    <div class="ctitle">JVK SWMS Prototype</div>
+    <div class="csub">Social Work Management System Prototype</div>
+    <p class="cdesc">ต้นแบบระบบบริหารจัดการงานสังคมสงเคราะห์ JVK รูปแบบใหม่ เพื่อพัฒนาต่อยอดในอนาคต</p>
+    <div class="cfoot"><span class="obtn">เปิดระบบ · Open <span class="arr">→</span></span><span class="chip">GitHub Pages</span></div>
+  </a>
+
+</main>
+
+<footer>
+  <div class="fline"></div>
+  <div class="flogo">JVK Social Work Digital Platform</div>
+  <div class="ftxt">
+    กลุ่มงานสังคมสงเคราะห์ · โรงพยาบาลจิตเวชนครราชสีมาราชนครินทร์<br>
+    Social Work Department · Nakhon Ratchasima Rajanagarindra Psychiatric Hospital<br>
+    <span style="color:rgba(120,60,180,.25)">Updated 2 June 2026 · 2 มิถุนายน 2569</span>
+  </div>
+</footer>
+
+</body>
+</html>
